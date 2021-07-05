@@ -17,7 +17,7 @@
 				<key>metadata</key>
 				<dict>
 					<key>bundle-identifier</key>
-					<string>science.xnu.undecimus1</string>
+					<string>science.xnu.undecimus</string>
 					<key>bundle-version</key>
 					<string>6.0.0</string>
 					<key>kind</key> 
