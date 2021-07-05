@@ -17,13 +17,13 @@
 				<key>metadata</key>
 				<dict>
 					<key>bundle-identifier</key>
-					<string>science.xnu.undecimus</string>
+					<string>science.xnu.undecimus1</string>
 					<key>bundle-version</key>
-					<string>6.0.1</string>
+					<string>6.0.3</string>
 					<key>kind</key> 
 					<string>software</string>
 					<key>title</key>
-					<string><![CDATA[unc0ver jailbreak v6]]></string>
+					<string><![CDATA[unc0ver v6]]></string>
 				</dict>
 			</dict>
 		</array>
