@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Роли сервера</title>
+    <style>
+        body{
+            margin: 0;
+            background-color: #252525;}p{margin: 0;}
+        .list{
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            height: 100vh;
+            float: left;
+            width: 26%;
+            margin: 0;   
+            background-color: #151515;         
+        }
+        
+        .role{
+            margin: 0;
+            padding: 0;
+            border-style: solid;
+            border-radius: 0px;
+            border-width: 0 0 0 2px;
+            border-color: rgba(0,0,0,0);
+            background-color: #151515;
+            color: #bbb;
+            
+        }
+        .role:hover{
+            overflow-x: scroll;
+            border-left-color: var(--bcolor);
+            background-color: #1e1e1e;
+            color: #fff;
+
+            
+        }
+        #active {
+            overflow-x: scroll;
+            border-left-color: var(--bcolor);
+            background-color: #252525;
+            color: #fff;
+
+        }
+        .name{
+            padding: 12px 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
+        }
+
+        .info{
+            float: right;
+            
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100vh;
+            width: 74%;
+        }
+        .title{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            
+
+            height: 80px;
+            width: 100%;
+            background-color: #1b1b1b;
+        }
+        .title_text{
+            color: #fff;
+            overflow-x: auto;
+
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-weight: 600;
+            font-size: 20px;
+            padding: 8px;
+            width: 100%;
+        }
+
+
+
+        .tabs_menu{
+            color: white;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            width: 100%;
+            margin: 0 0px;
+            justify-content: end;
+            align-items: center;
+            height: 40px;
+            display: flex;
+
+            
+            
+        }
+        .tab{
+            color: #bbb;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            padding: 10px 0;
+            width: 33.3%;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            border-style: solid;
+            border-width: 2px 0 0 0;
+            border-top-color: rgba(0,0,0,0);
+
+        }
+        .tab:hover{
+            background-color: #1e1e1e;
+            border-top-color: #1e1e1e;
+
+        }
+        #tab_active{
+            color: white;
+            border-top-color: #999;
+            border-style: solid;
+            border-width: 2px 0 0 0;
+            background-color: #252525;
+        }
+
+        .data_text{
+            color: #fff;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            margin: 10px 0 0 10px;
+            font-size: 17px;
+        }
+        code{
+            border: 2px;
+            background-color: #111;
+            margin: 0 3px;
+            padding: 3px 5px;
+            border-radius: 5px;
+        }
+        .color_text:hover{
+            color: var(--bcolor);
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <!-- <div class="info">
+        <div class="title">
+            <p class="title_text">
+                имя роли
+            </p>
+            <ul class="tabs_menu">
+                <li class="tab" id="tab_active">Основное</li>
+                <li class="tab">Разрешения</li>
+                <li class="tab">Пользователи</li>
+            </ul>
+        </div>
+        <div class="data">  
+            <p class="data_text" >ID: <code class="id_num">123</code></p>
+            <p class="data_text" >Цвет: <code class="color_text", style="--bcolor: #6eff6e">#123</code></p>
+
+        </div>
+    </div> -->
+
+
+
+<script>
+    
+    doc = document
+    const q = new URLSearchParams(window.location.search); data = q.get("data")
+    data = data.replaceAll(" ","+")
+    function utf8_to_b64( str ) {
+      return window.btoa(unescape(encodeURIComponent( str )));
+    }
+    function b64_to_utf8( str ) {
+      return decodeURIComponent(escape(window.atob( str )));
+    }
+    
+    
+    data = b64_to_utf8(data)
+    console.log(data)
+    data  = data.replaceAll('\\\\','\\')
+        array = data.split('\\||')
+
+        list = doc.createElement('div')
+        list.className = "list"
+        open = q.get("active")
+        tab  = q.get("tab")
+
+        for (let i = 0; i < array.length; i++) {
+            const e = array[i].split("\\-")
+           
+            div = doc.createElement("div")
+            div.addEventListener('click', function (event){
+                temp = window.location.toString()
+                temp = temp.replaceAll('&active='+open, "").replaceAll('&tab='+tab, "")
+                window.location = temp+"&active="+e[1]+"&tab="+tab
+            })
+            
+            div.className = "role"
+            if (open == e[1]){
+                div.id = "active"
+                
+                info = doc.createElement("div"); info.className = "info";
+                title = doc.createElement("div"); title.className = "title";
+                title_text = doc.createElement('p'); title_text.className = "title_text"; title_text.innerText = e[0]
+                ul = doc.createElement('ul'); ul.className = "tabs_menu"
+                li = doc.createElement('li'); li.className = "tab"; li.innerText = "Основное";
+                     li.addEventListener('click', function(event){
+                        temp = window.location.toString()
+                        temp = temp.replaceAll('&active='+open, "").replaceAll('&tab='+tab, "")
+                        window.location = temp+"&active="+e[1]+"&tab=main"  
+                     })
+                li2 = doc.createElement("li"); li2.className = "tab"; li2.innerText = "Разрешения";
+                      li2.addEventListener('click', function(event){
+                        temp = window.location.toString()
+                        temp = temp.replaceAll('&active='+open, "").replaceAll('&tab='+tab, "")
+                        window.location = temp+"&active="+e[1]+"&tab=perm"  
+                      })
+                li3 = doc.createElement("li"); li3.className = "tab"; li3.innerText = "Пользователи";
+                      li3.addEventListener('click', function(event){
+                        temp = window.location.toString()
+                        temp = temp.replaceAll('&active='+open, "").replaceAll('&tab='+tab, "")
+                        window.location = temp+"&active="+e[1]+"&tab=memb"  
+                      })
+   
+                      
+                      
+                      
+                      tab  = q.get("tab")
+                      role_data = doc.createElement("div"); role_data.className = "data"
+                      if (tab == "main"){
+                          li.id = "tab_active";
+                          id_t = doc.createElement('p'); id_t.className = "data_text"; id_t.innerText = "ID: "
+                          id_c = doc.createElement('code'); id_c.className = "id_num"; id_c.innerText = e[1]
+
+                          col_t = doc.createElement('p'); col_t.className = "data_text"; col_t.innerText = "Цвет: "
+                          col_c = doc.createElement('code'); col_c.className = "color_text"; col_c.style.setProperty('--bcolor', "#"+e[2]); col_c.innerText = "#"+e[2]
+                          
+                          
+                          id_t.appendChild(id_c)
+                          
+                          col_t.appendChild(col_c)
+                          
+                          
+                          role_data.appendChild(id_t)
+                          role_data.appendChild(col_t)
+                          
+                          
+                        }
+
+                        if (tab == "perm"){
+                            li2.id = "tab_active";
+                            id_t = doc.createElement('p'); id_t.className = "data_text"; id_t.innerText = "ID Разрешений: "
+                            id_c = doc.createElement('code'); id_c.className = "id_num"; id_c.innerText = "0x"+e[3]
+                            id_t.appendChild(id_c)
+                            role_data.appendChild(id_t)
+
+                        }
+
+                        if (tab == "memb"){
+                            li3.id = "tab_active";
+                        }
+                    ul.appendChild(li)
+                    ul.appendChild(li2)
+                    ul.appendChild(li3)
+                    title.appendChild(title_text)
+                    title.appendChild(ul)
+                    info.appendChild(title)
+                    doc.body.appendChild(info)
+                    info.appendChild(role_data)
+                        
+                
+
+            }
+            div.style.setProperty("--bcolor","#"+e[2]) 
+            var p = doc.createElement("p")
+            p.className = "name"
+            p.innerText = e[0]
+            div.appendChild(p)
+            list.appendChild(div)
+
+
+        } 
+        doc.body.appendChild(list)
+        doc.body.appendChild(info)
+
+
+
+        
+
+
+
+
+
+
+
+        function calculatePermissions(value){
+            
+
+
+        }
+permission_all = [
+            {
+                name: 'Основные разрешения',
+                permissions: [
+                    {id: 'administrator',       name: 'Administrator',         value: -8,        },
+                    {id: 'manage_roles',        name: 'Manage Roles',          value: -10000000, },
+                    {id: 'kick_members',        name: 'Kick Members',          value: -2,        },
+                    {id: 'instant_invite',      name: 'Create Instant Invite', value: -1,        },
+                    {id: 'manage_nicknames',    name: 'Manage Nicknames',      value: -8000000,  },
+                    {id: 'manage_server',       name: 'Manage Server',         value: -20,       },
+                    {id: 'manage_channels',     name: 'Manage Channels',       value: -10,       },
+                    {id: 'ban_members',         name: 'Ban Members',           value: -4,        },
+                    {id: 'change_nickname',     name: 'Change Nickname',       value: -4000000,  },
+                    {id: 'manage_webhooks',     name: 'Manage Webhooks',       value: -20000000, },
+                    {id: 'manage_emojis',       name: 'Manage Emojis',         value: -40000000, },
+                    {id: 'view_audit_log',      name: 'View Audit Log',        value: -80,       },
+                    {id: 'view_guild_insights', name: 'View Server Insights',  value: -80000,    },
+                    {id: 'view_channel',        name: 'View Channel',          value: -400,      }
+                ]
+            },
+            {
+                name: 'Текстовые разрешения',
+                permissions: [
+                    {id: 'send_tts_messages',    name: 'Send TTS Messages',    value: -1000,     },
+                    {id: 'embed_links',          name: 'Embed Links',          value: -4000,     },
+                    {id: 'read_message_history', name: 'Read Message History', value: -10000,    },
+                    {id: 'use_external_emojis',  name: 'Use External Emojis',  value: -40000,    },
+                    {id: 'send_messages',        name: 'Send Messages',        value: -800,      },
+                    {id: 'manage_messaes',       name: 'Manage Messages',      value: -2000,     },
+                    {id: 'attach_files',         name: 'Attach Files',         value: -8000,     },
+                    {id: 'mention_everyone',     name: 'Mention Everyone',     value: -20000,    },
+                    {id: 'add_reactions',        name: 'Add Reactions',        value: -40,       },
+                    {id: 'use_slash_commands',   name: 'Use Slash Commands',   value: -80000000, }
+                ]
+            },
+            {
+                name: 'Голосовые разрешения',
+                permissions: [
+                    {id: 'connect',            name: 'Connect',            value: -100000,    },
+                    {id: 'mute_members',       name: 'Mute Members',       value: -400000,    },
+                    {id: 'move_members',       name: 'Move Members',       value: -1000000,   },
+                    {id: 'speak',              name: 'Speak',              value: -200000,    },
+                    {id: 'deafen_members',     name: 'Deafen Members',     value: -800000,    },
+                    {id: 'use_voice_activity', name: 'Use Voice Activity', value: -2000000,   },
+                    {id: 'go_live',            name: 'Go Live',            value: -200,       },
+                    {id: 'priority_speaker',   name: 'Priority Speaker',   value: -100,       },
+                    {id: 'request_to_speak',   name: 'Request to Speak',   value: -100000000, }
+                ]
+            }
+        ];
+</script>
+</body>
+</html>
