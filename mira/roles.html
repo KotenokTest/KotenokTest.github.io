@@ -189,6 +189,9 @@
         list.className = "list"
         open = q.get("active")
         tab  = q.get("tab")
+        if (tab == "null"){
+            tab = "main"
+        }
 
         for (let i = 0; i < array.length; i++) {
             const e = array[i].split("\\-")
@@ -232,7 +235,7 @@
                       
                       tab  = q.get("tab")
                       role_data = doc.createElement("div"); role_data.className = "data"
-                      if (tab == "main"){
+                      if (tab == "main" || tab == "null"){
                           li.id = "tab_active";
                           id_t = doc.createElement('p'); id_t.className = "data_text"; id_t.innerText = "ID: "
                           id_c = doc.createElement('code'); id_c.className = "id_num"; id_c.innerText = e[1]
