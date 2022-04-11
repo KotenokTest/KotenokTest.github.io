@@ -31,6 +31,7 @@ a{
     align-content: center;
     /* justify-content: center; */
     padding-left: 0;
+    margin: 0;
 }
 .s-el{
     margin: 0 20px 0 0;
@@ -89,7 +90,7 @@ a{
     font-size: 16px;
     color: #ddd;
     font-weight: 100;
-    margin-bottom: 27px;
+    margin-bottom: 34px;
 
 }
 .s1{
@@ -135,7 +136,7 @@ a{
     }
     .main-descr{
         text-align: center;
-        margin-bottom: 0;
+        /* margin-bottom: 0; */
     }
     .main-text{
         text-align: center;
@@ -246,13 +247,13 @@ heart{
 </head>
 <body>
     <section class="s1">
-        <div class="s2-cmd"><a href="#ls" class="s2cp">/</a><a class="s2ci">></a><a class="s2cc"></a></div>
+        <!-- <div class="s2-cmd"><a href="#ls" class="s2cp">/</a><a class="s2ci">></a><a class="s2cc"></a></div> -->
 
         <div class="s1-main">
 
             <div class="main">
-                <!-- <img class="main-pic" src="/p.jpg" alt=""> -->
-                <pre class="main-pic cat cat-pic">
+                <img class="main-pic" src="p.jpg" alt="тут типо личико">
+                <!-- <pre class="main-pic cat cat-pic">
  ,_    _,
  |\\_,//| 
  / _  _ \    ,--.
@@ -264,7 +265,7 @@ heart{
   || |-_\__   /
  ((_/`(____,-'
                 </pre>
-                
+                 -->
             </div>
             <div class="about">
                 <h1 class="main-text">@ktnk </h1>
@@ -274,14 +275,17 @@ heart{
                     <li class="s-el"><a target="_blank" href="https://github.com/ktnk-dev" class="asoc">Github</a></li>
                     <li class="s-el"><a target="_blank" href="https://vk.com/ktnk_dev" class="asoc">VK</a></li>
                     <li class="s-el"><a target="_blank" href="https://www.instagram.com/ktnk.dev/" class="asoc">Instagram</a></li>
-
         
+                </ul>
+                <ul class="social">
+                    <li class="s-el"><a target="_blank" href="https://www.donationalerts.com/r/ktnk_dev" class="asoc">Поддержать меня ♡</a></li>
+
                 </ul>
             </div>
         </div>
 
     </section>
-    <section class="s2" id="about">
+    <!-- <section class="s2" id="about">
         <div class="s2-cmd"><a href="#ls" class="s2cp">#about</a><a class="s2ci">></a><a class="s2cc">ktnkfetch</a></div>
         <div class="s2-main">
             <div class="cat-div">
@@ -301,13 +305,16 @@ heart{
             <div class="info">uwu</div>
 
         </div>
-    </section>
+    </section> -->
     
      
 
 <script>
-cats = []
-
+    s = window.location.search.slice(1)
+    
+    if (s=="d"){
+        window.location = "https://www.donationalerts.com/r/ktnk_dev"
+    }
 </script>
 </body>
 </html>
